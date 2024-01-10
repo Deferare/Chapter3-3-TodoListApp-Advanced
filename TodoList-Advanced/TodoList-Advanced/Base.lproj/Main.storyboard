@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nsb-HZ-29S">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <device id="retina6_12" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
@@ -114,14 +114,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7K0-aF-UYz">
-                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="7K0-aF-UYz">
+                                <rect key="frame" x="16" y="103" width="361" height="715"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zbf-p6-aYx">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="55"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="55"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="55" id="voN-fC-sBl"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <menu key="menu" id="2k8-iS-la4">
                                             <children>
                                                 <command title="Item 1" id="9TH-I7-PIq"/>
@@ -130,9 +131,9 @@
                                         </menu>
                                         <state key="normal" title="Category"/>
                                     </button>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="top" placeholder="write down..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4PK-Sc-LOe">
-                                        <rect key="frame" x="0.0" y="55" width="393" height="660"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="write down..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4PK-Sc-LOe">
+                                        <rect key="frame" x="0.0" y="67" width="361" height="648"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
@@ -143,8 +144,8 @@
                         <constraints>
                             <constraint firstItem="TuS-1p-nIb" firstAttribute="bottom" secondItem="7K0-aF-UYz" secondAttribute="bottom" id="Beo-je-4jU"/>
                             <constraint firstItem="7K0-aF-UYz" firstAttribute="top" secondItem="TuS-1p-nIb" secondAttribute="top" id="MWF-vT-5Ig"/>
-                            <constraint firstItem="7K0-aF-UYz" firstAttribute="leading" secondItem="TuS-1p-nIb" secondAttribute="leading" id="O49-ex-6VZ"/>
-                            <constraint firstItem="TuS-1p-nIb" firstAttribute="trailing" secondItem="7K0-aF-UYz" secondAttribute="trailing" id="f6E-Dz-pjZ"/>
+                            <constraint firstItem="7K0-aF-UYz" firstAttribute="leading" secondItem="TuS-1p-nIb" secondAttribute="leading" constant="16" id="O49-ex-6VZ"/>
+                            <constraint firstItem="TuS-1p-nIb" firstAttribute="trailing" secondItem="7K0-aF-UYz" secondAttribute="trailing" constant="16" id="f6E-Dz-pjZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add" largeTitleDisplayMode="never" id="vDk-bV-mnD"/>
