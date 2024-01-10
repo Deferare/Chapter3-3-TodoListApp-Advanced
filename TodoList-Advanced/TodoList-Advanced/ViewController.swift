@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     var data:[[Todo]] = Todo.getTestData()
     
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,7 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return data.count
+        return Category.allCases.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -40,8 +40,7 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let titles = ["Work", "Life", "ETC"]
-        return titles[section]
+        return Category.allCases[section].text
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -50,10 +49,25 @@ extension ViewController: UITableViewDataSource {
 }
 
 extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, completionHandler) in
+            self.goToEdit(indexPath, self.data[indexPath.section][indexPath.row])
+            completionHandler(true)
+        }
+        let configuration = UISwipeActionsConfiguration(actions: [editAction])
+        return configuration
+    }
+    
+    
+    // 오른쪽에서 스와이프
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        UISwipeActionsConfiguration(actions: [.init(style: .destructive, title: "test", handler: { t,a,c  in
-            
-        })])
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
+            self.data[indexPath.section].remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            completionHandler(true)
+        }
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
     }
 }
 
@@ -67,12 +81,62 @@ extension ViewController {
     
     private func setUpNavigation() {
         navigationController?.navigationBar.prefersLargeTitles = true
-//        navigationController?.isToolbarHidden = false
-//        navigationController?.isNavigationBarHidden = false
-//        navigationItem.title = "Todo"
+        navigationController?.isToolbarHidden = false
+        navigationController?.isNavigationBarHidden = false
+        navigationItem.title = "Todo"
     }
+    
     @IBAction func tappedAdd() {
-         
+        guard let addEditNaviVC = storyboard?.instantiateViewController(identifier: "AddEditNaviViewController") as? UINavigationController else { return }
+        
+        
+        if let addEditVC = addEditNaviVC.topViewController as? AddEditViewController {
+            addEditVC.complete = { newTodo in
+                if let newTodo = newTodo {
+                    var section = 0
+                    for c in Category.allCases {
+                        if newTodo.category == c {
+                            self.data[section].append(newTodo)
+                            break
+                        }
+                        section += 1
+                    }
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        
+        addEditNaviVC.modalPresentationStyle = .formSheet
+        self.present(addEditNaviVC, animated: true)
+    }
+    
+    private func goToEdit(_ indexPath: IndexPath,_ todo: Todo) {
+        guard let addEditNaviVC = storyboard?.instantiateViewController(identifier: "AddEditNaviViewController") as? UINavigationController else { return }
+        
+        if let addEditVC = addEditNaviVC.topViewController as? AddEditViewController {
+            addEditVC.data = todo
+            addEditVC.complete = { newTodo in
+                if let newTodo = newTodo {
+                    if self.data[indexPath.section][indexPath.row].category == newTodo.category {
+                        self.data[indexPath.section][indexPath.row] = newTodo
+                    } else {
+                        var section = 0
+                        for c in Category.allCases {
+                            if newTodo.category == c {
+                                self.data[section].append(newTodo)
+                                break
+                            }
+                            section += 1
+                        }
+                        self.data[indexPath.section].remove(at: indexPath.row)
+                    }
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        
+        addEditNaviVC.modalPresentationStyle = .formSheet
+        self.present(addEditNaviVC, animated: true)
     }
 }
 
@@ -80,4 +144,3 @@ extension ViewController {
 //#Preview {
 //    return ViewController()
 //}
-

@@ -7,6 +7,7 @@
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -29,7 +30,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="pbm-34-wl8">
+                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pbm-34-wl8">
                                                     <rect key="frame" x="0.0" y="0.0" width="353" height="55"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FA4-aJ-Ia5">
@@ -52,7 +53,7 @@
                                                                 <action selector="tappedComplete:" destination="cWh-Zp-MSu" eventType="touchUpInside" id="kXr-O2-TAj"/>
                                                             </connections>
                                                         </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Learning asdasdasdasdasd asdasd asd asd asd as" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dV7-Ko-tDp">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="asdasd" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dV7-Ko-tDp">
                                                             <rect key="frame" x="55" y="0.0" width="298" height="55"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
@@ -60,7 +61,9 @@
                                                         </label>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="FA4-aJ-Ia5" firstAttribute="centerY" secondItem="pbm-34-wl8" secondAttribute="centerY" id="BKu-ft-NnE"/>
+                                                        <constraint firstItem="FA4-aJ-Ia5" firstAttribute="leading" secondItem="pbm-34-wl8" secondAttribute="leading" id="6EK-Hc-iim"/>
+                                                        <constraint firstAttribute="bottom" secondItem="FA4-aJ-Ia5" secondAttribute="bottom" id="Mpj-5N-HQA"/>
+                                                        <constraint firstItem="FA4-aJ-Ia5" firstAttribute="top" secondItem="pbm-34-wl8" secondAttribute="top" id="ZCp-jF-bom"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
@@ -88,8 +91,7 @@
                         </constraints>
                     </view>
                     <toolbarItems>
-                        <barButtonItem id="kz7-fl-8UB">
-                            <imageReference key="image" image="plus.circle.fill" catalog="system" symbolScale="large"/>
+                        <barButtonItem systemItem="add" id="kz7-fl-8UB">
                             <connections>
                                 <action selector="tappedAdd" destination="BYZ-38-t0r" id="iEN-e0-gVC"/>
                             </connections>
@@ -103,6 +105,57 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1065" y="-2"/>
+        </scene>
+        <!--Add-->
+        <scene sceneID="OQE-Dw-6wd">
+            <objects>
+                <viewController id="XtK-5G-7YI" customClass="AddEditViewController" customModule="TodoList_Advanced" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rnW-aA-fAh">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7K0-aF-UYz">
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zbf-p6-aYx">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="55"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="55" id="voN-fC-sBl"/>
+                                        </constraints>
+                                        <menu key="menu" id="2k8-iS-la4">
+                                            <children>
+                                                <command title="Item 1" id="9TH-I7-PIq"/>
+                                                <command title="Item 2" id="GAU-ej-aAl"/>
+                                            </children>
+                                        </menu>
+                                        <state key="normal" title="Category"/>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="top" placeholder="write down..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4PK-Sc-LOe">
+                                        <rect key="frame" x="0.0" y="55" width="393" height="660"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="TuS-1p-nIb"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="TuS-1p-nIb" firstAttribute="bottom" secondItem="7K0-aF-UYz" secondAttribute="bottom" id="Beo-je-4jU"/>
+                            <constraint firstItem="7K0-aF-UYz" firstAttribute="top" secondItem="TuS-1p-nIb" secondAttribute="top" id="MWF-vT-5Ig"/>
+                            <constraint firstItem="7K0-aF-UYz" firstAttribute="leading" secondItem="TuS-1p-nIb" secondAttribute="leading" id="O49-ex-6VZ"/>
+                            <constraint firstItem="TuS-1p-nIb" firstAttribute="trailing" secondItem="7K0-aF-UYz" secondAttribute="trailing" id="f6E-Dz-pjZ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add" largeTitleDisplayMode="never" id="vDk-bV-mnD"/>
+                    <connections>
+                        <outlet property="categoryButton" destination="zbf-p6-aYx" id="WG4-rf-1nq"/>
+                        <outlet property="textField" destination="4PK-Sc-LOe" id="vIZ-yC-W4n"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KGX-km-Pgf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2950.3816793893129" y="-2.1126760563380285"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BEf-dV-jIM">
@@ -126,10 +179,28 @@
             </objects>
             <point key="canvasLocation" x="138.1679389312977" y="-2.1126760563380285"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="OKg-gF-Qv8">
+            <objects>
+                <navigationController storyboardIdentifier="AddEditNaviViewController" automaticallyAdjustsScrollViewInsets="NO" id="FDS-wk-oGI" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="f4k-FD-8Om"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6FM-Wt-xht">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="XtK-5G-7YI" kind="relationship" relationship="rootViewController" id="TZy-b6-WaK"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="80m-We-4mW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1999" y="-2"/>
+        </scene>
     </scenes>
     <resources>
         <image name="circle" catalog="system" width="128" height="123"/>
-        <image name="plus.circle.fill" catalog="system" width="128" height="123"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -15,6 +15,7 @@
 		E09FD6D32B4B70BD00211E89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E09FD6D12B4B70BD00211E89 /* LaunchScreen.storyboard */; };
 		E09FD6DD2B4B879100211E89 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09FD6DC2B4B879100211E89 /* Todo.swift */; };
 		E09FD6DF2B4B8CC900211E89 /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09FD6DE2B4B8CC900211E89 /* TodoCell.swift */; };
+		E0E763C62B4E128D00117C54 /* AddEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E763C52B4E128D00117C54 /* AddEditViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		E09FD6D42B4B70BD00211E89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E09FD6DC2B4B879100211E89 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		E09FD6DE2B4B8CC900211E89 /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
+		E0E763C52B4E128D00117C54 /* AddEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				E09FD6C82B4B70BC00211E89 /* SceneDelegate.swift */,
 				E09FD6DC2B4B879100211E89 /* Todo.swift */,
 				E09FD6CA2B4B70BC00211E89 /* ViewController.swift */,
+				E0E763C52B4E128D00117C54 /* AddEditViewController.swift */,
 				E09FD6DE2B4B8CC900211E89 /* TodoCell.swift */,
 				E09FD6CC2B4B70BC00211E89 /* Main.storyboard */,
 				E09FD6CF2B4B70BD00211E89 /* Assets.xcassets */,
@@ -146,6 +149,7 @@
 			files = (
 				E09FD6CB2B4B70BC00211E89 /* ViewController.swift in Sources */,
 				E09FD6C72B4B70BC00211E89 /* AppDelegate.swift in Sources */,
+				E0E763C62B4E128D00117C54 /* AddEditViewController.swift in Sources */,
 				E09FD6C92B4B70BC00211E89 /* SceneDelegate.swift in Sources */,
 				E09FD6DF2B4B8CC900211E89 /* TodoCell.swift in Sources */,
 				E09FD6DD2B4B879100211E89 /* Todo.swift in Sources */,

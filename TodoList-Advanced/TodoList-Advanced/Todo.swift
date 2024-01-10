@@ -11,11 +11,25 @@ struct Todo {
     var text: String
     var category: Category
     
-    enum Category {
-        case work, life, etc
+    
+}
+
+enum Category: CaseIterable {
+    case work, life, etc
+    
+    var text : String {
+        switch self {
+        case .work:
+            return "Work"
+        case .life:
+            return "Life"
+        case .etc:
+            return "Etc."
+        }
     }
 }
 
+//MARK: - ETC.
 extension Todo {
     static func getTestData() -> [[Todo]] {
         [[Todo(text: "Get ready working iOS", category: .work),
