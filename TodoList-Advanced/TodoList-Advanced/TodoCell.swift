@@ -8,10 +8,10 @@
 import UIKit
 
 class TodoCell: UITableViewCell {
-    var todo: Todo!
-    
     @IBOutlet var title: UILabel!
 
+    var todo: Todo?
+    var action: ((UUID?) -> ())?
 //    override func awakeFromNib() {
 //        super.awakeFromNib()
 //        // Initialization code
@@ -20,12 +20,12 @@ class TodoCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        title.text = todo.text
+        title.text = todo?.text
     }
 }
 
 extension TodoCell {
     @IBAction func tappedComplete(_ button: UIButton) {
-        
+        action?(todo?.id)
     }
 }

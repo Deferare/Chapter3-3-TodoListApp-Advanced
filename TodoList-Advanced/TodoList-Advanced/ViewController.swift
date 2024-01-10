@@ -18,8 +18,6 @@ class ViewController: UIViewController {
         setUpNavigation()
         setUpTableView()
     }
-    
-
 }
 
 extension ViewController: UITableViewDataSource {
@@ -35,7 +33,13 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell") as? TodoCell else { return UITableViewCell() }
         cell.todo = data[indexPath.section][indexPath.row]
-        
+        cell.action = { id in
+            if let id = id {
+                let newIndexPath = self.getCurrentIndexPath(id, indexPath.section)
+                self.data[indexPath.section].remove(at: newIndexPath.row)
+                tableView.deleteRows(at: [newIndexPath], with: .fade)
+            }
+        }
         return cell
     }
     
@@ -49,17 +53,17 @@ extension ViewController: UITableViewDataSource {
 }
 
 extension ViewController: UITableViewDelegate {
+    // Swipe from left
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, completionHandler) in
-            self.goToEdit(indexPath, self.data[indexPath.section][indexPath.row])
+            self.toEdit(indexPath, self.data[indexPath.section][indexPath.row])
             completionHandler(true)
         }
         let configuration = UISwipeActionsConfiguration(actions: [editAction])
         return configuration
     }
     
-    
-    // 오른쪽에서 스와이프
+    // Swipe from right
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             self.data[indexPath.section].remove(at: indexPath.row)
@@ -110,7 +114,7 @@ extension ViewController {
         self.present(addEditNaviVC, animated: true)
     }
     
-    private func goToEdit(_ indexPath: IndexPath,_ todo: Todo) {
+    private func toEdit(_ indexPath: IndexPath,_ todo: Todo) {
         guard let addEditNaviVC = storyboard?.instantiateViewController(identifier: "AddEditNaviViewController") as? UINavigationController else { return }
         
         if let addEditVC = addEditNaviVC.topViewController as? AddEditViewController {
@@ -137,6 +141,17 @@ extension ViewController {
         
         addEditNaviVC.modalPresentationStyle = .formSheet
         self.present(addEditNaviVC, animated: true)
+    }
+    
+    private func getCurrentIndexPath(_ id: UUID,_ section: Int) -> IndexPath {
+        var new = IndexPath(row: 0, section: section)
+        for i in 0..<self.data[section].count {
+            if self.data[section][i].id == id {
+                new = IndexPath(row: i, section: section)
+                break
+            }
+        }
+        return new
     }
 }
 
