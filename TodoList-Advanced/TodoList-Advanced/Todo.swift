@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Todo: Identifiable {
+struct Todo: Identifiable, Codable {
     var id = UUID()
     var text: String
     var category: Category
 }
 
-enum Category: CaseIterable {
+enum Category: String, CaseIterable, Codable {
     case work, life, etc
     
     var text : String {

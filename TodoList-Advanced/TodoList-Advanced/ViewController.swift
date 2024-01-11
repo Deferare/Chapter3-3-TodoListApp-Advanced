@@ -8,15 +8,20 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var data:[[Todo]] = Todo.getTestData()
+    var todoData:[[Todo]] = Array(repeating: [], count: Category.allCases.count)
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loadTodoData()
         setUpNavigation()
         setUpTableView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        saveTodoData()
     }
 }
 
@@ -27,16 +32,16 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data[section].count
+        return todoData[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell") as? TodoCell else { return UITableViewCell() }
-        cell.todo = data[indexPath.section][indexPath.row]
+        cell.todo = todoData[indexPath.section][indexPath.row]
         cell.action = { id in
             if let id = id {
                 let newIndexPath = self.getCurrentIndexPath(id, indexPath.section)
-                self.data[indexPath.section].remove(at: newIndexPath.row)
+                self.todoData[indexPath.section].remove(at: newIndexPath.row)
                 tableView.deleteRows(at: [newIndexPath], with: .fade)
             }
         }
@@ -56,7 +61,7 @@ extension ViewController: UITableViewDelegate {
     // Swipe from left
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, completionHandler) in
-            self.toEdit(indexPath, self.data[indexPath.section][indexPath.row])
+            self.toEdit(indexPath, self.todoData[indexPath.section][indexPath.row])
             completionHandler(true)
         }
         let configuration = UISwipeActionsConfiguration(actions: [editAction])
@@ -66,7 +71,7 @@ extension ViewController: UITableViewDelegate {
     // Swipe from right
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
-            self.data[indexPath.section].remove(at: indexPath.row)
+            self.todoData[indexPath.section].remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             completionHandler(true)
         }
@@ -100,7 +105,7 @@ extension ViewController {
                     var section = 0
                     for c in Category.allCases {
                         if newTodo.category == c {
-                            self.data[section].append(newTodo)
+                            self.todoData[section].append(newTodo)
                             break
                         }
                         section += 1
@@ -121,18 +126,18 @@ extension ViewController {
             addEditVC.data = todo
             addEditVC.complete = { newTodo in
                 if let newTodo = newTodo {
-                    if self.data[indexPath.section][indexPath.row].category == newTodo.category {
-                        self.data[indexPath.section][indexPath.row] = newTodo
+                    if self.todoData[indexPath.section][indexPath.row].category == newTodo.category {
+                        self.todoData[indexPath.section][indexPath.row] = newTodo
                     } else {
                         var section = 0
                         for c in Category.allCases {
                             if newTodo.category == c {
-                                self.data[section].append(newTodo)
+                                self.todoData[section].append(newTodo)
                                 break
                             }
                             section += 1
                         }
-                        self.data[indexPath.section].remove(at: indexPath.row)
+                        self.todoData[indexPath.section].remove(at: indexPath.row)
                     }
                     self.tableView.reloadData()
                 }
@@ -145,13 +150,27 @@ extension ViewController {
     
     private func getCurrentIndexPath(_ id: UUID,_ section: Int) -> IndexPath {
         var new = IndexPath(row: 0, section: section)
-        for i in 0..<self.data[section].count {
-            if self.data[section][i].id == id {
+        for i in 0..<self.todoData[section].count {
+            if self.todoData[section][i].id == id {
                 new = IndexPath(row: i, section: section)
                 break
             }
         }
         return new
+    }
+    
+    private func saveTodoData() {
+        if let data = try? JSONEncoder().encode(todoData) {
+            UserDefaults.standard.set(data, forKey: "todoData")
+        }
+    }
+    
+    private func loadTodoData() {
+        if let data = UserDefaults.standard.data(forKey: "todoData") {
+            if let todo = try? JSONDecoder().decode([[Todo]].self, from: data) {
+                self.todoData = todo
+            }
+        }
     }
 }
 

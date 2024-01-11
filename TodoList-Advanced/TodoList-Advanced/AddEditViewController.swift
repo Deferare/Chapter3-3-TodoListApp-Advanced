@@ -16,7 +16,7 @@ class AddEditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+//        UserDefaults.standard.set(self.data[0][1], forKey: self.data?.id.uuidString!)
         setUpNavigation()
         setUpCategoryButtonView()
         setUpTextFieldView()
